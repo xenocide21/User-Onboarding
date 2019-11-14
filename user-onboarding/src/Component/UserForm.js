@@ -65,7 +65,7 @@ const FormikUserForm = withFormik({
             .required(),
         tos: Yup.bool().oneOf([true], `You Must Agree to the ToS.`)
     }),
-    handleSubmit(values, {setStatus}){
+    handleSubmit(values, {setStatus, resetForm}){
         axios
             .post("https://reqres.in/api/users/", values)
             .then(res =>{
@@ -75,6 +75,7 @@ const FormikUserForm = withFormik({
             .catch(err => {
                 console.log(err.response)
             })
+            .finally(resetForm())
     }
 })(UserForm);
 
